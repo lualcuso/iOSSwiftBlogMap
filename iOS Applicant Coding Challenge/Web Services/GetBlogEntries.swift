@@ -8,12 +8,12 @@
 import Foundation
 
 class GetBlogEntries : ObservableObject {
-    var entriesJSON: [Entry]
+    @Published var entriesJSON: BlogEntries
     private let url: URL
     
     init(url: URL) {
         self.url = url
-        entriesJSON = []
+        entriesJSON = BlogEntries(last_rev: "", articles: [])
     }
     
     func fetchEntries()  {
@@ -26,11 +26,10 @@ class GetBlogEntries : ObservableObject {
                 }
                 if let data = data {
                     print("data: \(data)")
-//                    let json = try? JSONSerialization.jsonObject(with: data, options: [])
                      do {
                         let decoder = JSONDecoder()
-                        self.entriesJSON = try decoder.decode([Entry].self, from: data)
-                        
+                        self.entriesJSON = try decoder.decode(BlogEntries.self, from: data)
+                        print(self.entriesJSON)
                     } catch let error {
                         print(error)
                     }

@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct Blog: View {
-    var entriesGetter: GetBlogEntries
+    @ObservedObject var entriesGetter: GetBlogEntries
     init() {
         let fetchUrl = URL(string: "https://www.beenverified.com/articles/index.ios.json")
         entriesGetter = GetBlogEntries(url: fetchUrl!)
@@ -17,7 +17,7 @@ struct Blog: View {
     
     var body: some View {
         NavigationView {
-            List(entriesJSON, id: \.uuid) { entry in
+            List(entriesGetter.entriesJSON.articles, id: \.uuid) { entry in
                 EntryRow(blogEntry: entry)
             }
         }.onAppear(perform: entriesGetter.fetchEntries)
