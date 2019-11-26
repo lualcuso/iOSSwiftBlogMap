@@ -18,9 +18,11 @@ struct Blog: View {
     var body: some View {
         NavigationView {
             List(entriesGetter.entriesJSON.articles, id: \.uuid) { entry in
-                EntryRow(blogEntry: entry)
-            }
-        }.onAppear(perform: entriesGetter.fetchEntries)
+                NavigationLink(destination: EntryWebView(url: entry.link.replacingOccurrences(of: "ios.html", with: ""))) {
+                    EntryRow(blogEntry: entry)
+                }
+            }.navigationBarTitle(Text("Blog Entries"))
+            }.onAppear(perform: entriesGetter.fetchEntries)
     }
 }
 

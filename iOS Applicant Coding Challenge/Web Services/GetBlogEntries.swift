@@ -10,10 +10,12 @@ import Foundation
 class GetBlogEntries : ObservableObject {
     @Published var entriesJSON: BlogEntries
     private let url: URL
+    private let entry: Entry
     
     init(url: URL) {
         self.url = url
-        entriesJSON = BlogEntries(last_rev: "", articles: [])
+        self.entry = Entry(title: "", author: "", image: "", article_date: "", link: "", uuid: "")
+        entriesJSON = BlogEntries(last_rev: "", articles: [self.entry])
     }
     
     func fetchEntries()  {
@@ -25,11 +27,9 @@ class GetBlogEntries : ObservableObject {
                     print("statusCode: \(response.statusCode)")
                 }
                 if let data = data {
-                    print("data: \(data)")
                      do {
                         let decoder = JSONDecoder()
                         self.entriesJSON = try decoder.decode(BlogEntries.self, from: data)
-                        print(self.entriesJSON)
                     } catch let error {
                         print(error)
                     }

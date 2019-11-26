@@ -12,7 +12,7 @@ import CoreLocation
 struct Entry: Hashable, Codable {
   
     var title: String
-    var description: String?
+    var description: String? = "No Description Available"
     var author: String
     var image: String
     var article_date: String

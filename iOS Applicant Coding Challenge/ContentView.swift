@@ -17,16 +17,15 @@ struct ContentView: View {
                 .tabItem {
                     VStack {
                         Image("first")
-                        Text("First")
+                        Text("Blog")
                     }
                 }
                 .tag(0)
-            Text("Second View")
-                .font(.title)
+            MapView().edgesIgnoringSafeArea(.vertical)
                 .tabItem {
                     VStack {
                         Image("second")
-                        Text("Second")
+                        Text("Map")
                     }
                 }
                 .tag(1)
